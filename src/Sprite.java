@@ -47,7 +47,7 @@ public class Sprite {
 	{
 		if(usePrevPal)
 			name = "PALETLESS"+name;
-		FileOutputStream out = new FileOutputStream(name+ " "+groupNumber + "-"+ imageNumber+".pcx", true);
+		FileOutputStream out = new FileOutputStream("images\\"+name+"-"+groupNumber + "-"+ imageNumber+".pcx", true);
 		if(pcxData[0] == 0)
 			System.out.println("huh?");
 		out.write(pcxData);
@@ -57,8 +57,24 @@ public class Sprite {
 		System.out.println(name+ " "+groupNumber + "-"+ imageNumber+".pcx");
 		
 	}
+	public String verboseToString()
+	{
+		return "Group Number: " + groupNumber + "\n"+
+				"Image Number: "+ imageNumber + "\n"+
+				"Index of next sprite : " + indexOfNextSprite + "\n"+
+				"Subfile Length : " + subFileLength + "\n"+
+				"Using previous Palette : " + usePrevPal;
+				
+	}
 	public void createPcxWithPallette(String name, byte[] pal)
 	{
 		
+	}
+	public byte[] getPaletteData()
+	{
+		if(pcxData !=null)
+			return Arrays.copyOfRange(pcxData, pcxData.length-768, pcxData.length);
+		else
+			throw new NullPointerException("Null value in pcx data array");
 	}
 }
